@@ -1,51 +1,19 @@
 import React from 'react';
-import { Card } from 'react-native-paper';
-import styled from 'styled-components/native';
 import { SvgXml } from 'react-native-svg';
 import star from '../../../../assets/star';
 import open from '../../../../assets/open';
 import { Spacer } from '../../../components/spacer/spacer.component';
 import { Text } from '../../../components/typography/text.component';
-
-const RestaurantCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const RestaurantCardCover = styled(Card.Cover)`
-  padding: ${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const Info = styled.View`
-  padding: ${(props) => props.theme.space[3]};
-`;
-
-const RatingOpenContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-const Rating = styled.View`
-  flex-direction: row;
-  padding-top: ${(props) => props.theme.space[1]};
-  padding-bottom: ${(props) => props.theme.space[1]};
-`;
-const OpenNow = styled.View`
-  padding-top: ${(props) => props.theme.space[1]};
-  padding-bottom: ${(props) => props.theme.space[1]};
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-end;
-`;
-
-const Address = styled.Text`
-  font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
-`;
-
-const RestaurantIcon = styled.Image`
-  width: 15px;
-  height: 15px;
-`;
+import {
+  RestaurantCard,
+  RestaurantCardCover,
+  Info,
+  Address,
+  RatingOpenContainer,
+  Rating,
+  OpenNow,
+  RestaurantIcon,
+} from './restaurant-info-card-styles';
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -76,7 +44,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
           </Rating>
           <OpenNow>
             {isClosedTemporarily && (
-              <Text variant="caption">CLOSED TEMPORARILY</Text>
+              <Text variant="error">CLOSED TEMPORARILY</Text>
             )}
             <Spacer position="left" size="large">
               {isOpenNow && <SvgXml width="20" height="20" xml={open} />}
