@@ -1,5 +1,5 @@
 module.exports = {
-    quoteProps: "consistent",
-    singleQuote: true,
-    jsxSingleQuote: false,
+  quoteProps: 'consistent',
+  singleQuote: true,
+  jsxSingleQuote: false,
 };
