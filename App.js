@@ -5,6 +5,7 @@ import { theme } from './src/infrastructure/theme/index';
 import { RestaurantsContextProvider } from './src/services/restaurants/restaurants.context';
 import { LocationContextProvider } from './src/services/location/location.context';
 import AppNavigator from './src/infrastructure/navigation/app.navigator';
+import { SafeArea } from './src/components/utility/safe-area.component';
 
 import {
   useFonts as useOswald,
@@ -25,13 +26,15 @@ export default function App() {
   }
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          <RestaurantsContextProvider>
-            <AppNavigator />
-          </RestaurantsContextProvider>
-        </LocationContextProvider>
-      </ThemeProvider>
+      <SafeArea>
+        <ThemeProvider theme={theme}>
+          <LocationContextProvider>
+            <RestaurantsContextProvider>
+              <AppNavigator />
+            </RestaurantsContextProvider>
+          </LocationContextProvider>
+        </ThemeProvider>
+      </SafeArea>
       <ExpoStatusBar style="auto" />
     </>
   );
