@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components/native';
 import { theme } from './src/infrastructure/theme/index';
 import { RestaurantsContextProvider } from './src/services/restaurants/restaurants.context';
 import { LocationContextProvider } from './src/services/location/location.context';
+import { FavoritesContextProvider } from './src/services/favorites/favorites.context';
 import AppNavigator from './src/infrastructure/navigation/app.navigator';
 import { SafeArea } from './src/components/utility/safe-area.component';
 
@@ -28,11 +29,13 @@ export default function App() {
     <>
       <SafeArea>
         <ThemeProvider theme={theme}>
-          <LocationContextProvider>
-            <RestaurantsContextProvider>
-              <AppNavigator />
-            </RestaurantsContextProvider>
-          </LocationContextProvider>
+          <FavoritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantsContextProvider>
+                <AppNavigator />
+              </RestaurantsContextProvider>
+            </LocationContextProvider>
+          </FavoritesContextProvider>
         </ThemeProvider>
       </SafeArea>
       <ExpoStatusBar style="auto" />
