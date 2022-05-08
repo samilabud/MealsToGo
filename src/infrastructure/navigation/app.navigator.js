@@ -34,6 +34,8 @@ const screenOptions = ({ route }) => {
   return {
     tabBarIcon: tabBarIcon(route.name),
     headerShown: false,
+    tabBarActiveTintColor: 'black',
+    tabBarInactiveTintColor: 'gray',
   };
 };
 
@@ -45,13 +47,7 @@ const Settings = () => (
 
 export const AppNavigator = () => (
   <NavigationContainer>
-    <Tab.Navigator
-      screenOptions={screenOptions}
-      tabBarOptions={{
-        activeTintColor: 'black',
-        inactiveTintColor: 'gray',
-      }}
-    >
+    <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
       <Tab.Screen name="Map" component={MapScreen} />
       <Tab.Screen name="Settings" component={Settings} />
