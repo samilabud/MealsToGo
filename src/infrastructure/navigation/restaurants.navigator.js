@@ -12,9 +12,9 @@ import { RestaurantDetailScreen } from '../../features/restaurants/screens/resta
 export const RestaurantsNavigator = () => {
   return (
     <RestaurantStack.Navigator
-      headerShown={false}
       screenOptions={{
         ...TransitionPresets.ModalPresentationIOS,
+        headerShown: false,
       }}
     >
       <RestaurantStack.Screen
