@@ -9,6 +9,7 @@ import { SafeArea } from '../../../components/utility/safe-area.component';
 import { RestaurantsContext } from '../../../services/restaurants/restaurants.context';
 import { FavoritesContext } from '../../../services/favorites/favorites.context';
 import { Search } from '../components/search.component';
+import { FadeInView } from '../../../components/animations/fade.animation';
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: { padding: 10 },

@@ -1,27 +1,25 @@
-import React, { useContext } from 'react';
-import { Text, Button } from 'react-native';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { RestaurantsNavigator } from './restaurants.navigator';
-import { SafeArea } from '../../components/utility/safe-area.component';
 import { MapScreen } from '../../features/map/screen/map.screen';
-import { AuthenticationContext } from '../../services/authentication/authentication.context';
 import { RestaurantsContextProvider } from '../../services/restaurants/restaurants.context';
 import { LocationContextProvider } from '../../services/location/location.context';
 import { FavoritesContextProvider } from '../../services/favorites/favorites.context';
+import { SettingsNavigator } from './settings.navigator';
 
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON_FOCUSED = {
   Restaurants: 'restaurant',
   Map: 'map',
-  Settings: 'settings',
+  SettingsScreen: 'settings',
 };
 
 const TAB_ICON_OUTLINE = {
   Restaurants: 'restaurant-outline',
   Map: 'map-outline',
-  Settings: 'settings-outline',
+  SettingsScreen: 'settings-outline',
 };
 
 const tabBarIcon =
@@ -42,16 +40,6 @@ const screenOptions = ({ route }) => {
   };
 };
 
-const Settings = () => {
-  const { logOut } = useContext(AuthenticationContext);
-  return (
-    <SafeArea>
-      <Text>Settings</Text>
-      <Button title="Logout" onPress={() => logOut()} />
-    </SafeArea>
-  );
-};
-
 export const AppNavigator = () => (
   <FavoritesContextProvider>
     <LocationContextProvider>
@@ -59,7 +47,11 @@ export const AppNavigator = () => (
         <Tab.Navigator screenOptions={screenOptions}>
           <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
           <Tab.Screen name="Map" component={MapScreen} />
-          <Tab.Screen name="Settings" component={Settings} />
+          <Tab.Screen
+            options={{ title: 'Settings' }}
+            name="SettingsScreen"
+            component={SettingsNavigator}
+          />
         </Tab.Navigator>
       </RestaurantsContextProvider>
     </LocationContextProvider>
