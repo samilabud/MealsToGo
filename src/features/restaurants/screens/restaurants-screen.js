@@ -4,8 +4,10 @@ import { ActivityIndicator, Colors } from 'react-native-paper';
 import { RestaurantInfoCard } from '../components/restaurant-info-card.component';
 import styled from 'styled-components/native';
 import { Spacer } from '../../../components/spacer/spacer.component';
+import { Text } from '../../../components/typography/text.component';
 import { FavoritesBar } from '../../../components/favorites/favorites-bar.component';
 import { SafeArea } from '../../../components/utility/safe-area.component';
+import { LocationContext } from '../../../services/location/location.context';
 import { RestaurantsContext } from '../../../services/restaurants/restaurants.context';
 import { FavoritesContext } from '../../../services/favorites/favorites.context';
 import { Search } from '../components/search.component';
@@ -27,6 +29,8 @@ export const RestaurantsScreen = ({ navigation }) => {
   const { restaurants, isLoading, error } = useContext(RestaurantsContext);
   const [isToggled, setIsToggled] = useState(false);
   const { favorites } = useContext(FavoritesContext);
+  const { error: errorLocation } = useContext(LocationContext);
+  const hasError = !!error || !!errorLocation;
 
   return (
     <SafeArea>
@@ -34,10 +38,18 @@ export const RestaurantsScreen = ({ navigation }) => {
         isFavoriteToggled={isToggled}
         onFavoriteToggle={() => setIsToggled(!isToggled)}
       />
-      {isToggled && (
+      {hasError && (
+        <Spacer position="left" size="large">
+          <Text variant="error">
+            ERROR: {error ? error.toUpperCase() : ''}
+            {errorLocation ? errorLocation.toUpperCase() : ''}
+          </Text>
+        </Spacer>
+      )}
+      {isToggled && !hasError && (
         <FavoritesBar favorites={favorites} onNavigate={navigation.navigate} />
       )}
-      {isLoading ? (
+      {isLoading && !hasError && (
         <LoadingView>
           <OwnActivityIndicator
             animating={true}
@@ -45,7 +57,8 @@ export const RestaurantsScreen = ({ navigation }) => {
             size={50}
           />
         </LoadingView>
-      ) : (
+      )}
+      {!isLoading && !hasError && (
         <RestaurantList
           data={restaurants}
           renderItem={({ item }) => (
@@ -57,7 +70,9 @@ export const RestaurantsScreen = ({ navigation }) => {
               }
             >
               <Spacer position="bottom" size="large">
-                <RestaurantInfoCard restaurant={item} />
+                <FadeInView>
+                  <RestaurantInfoCard restaurant={item} />
+                </FadeInView>
               </Spacer>
             </TouchableOpacity>
           )}
